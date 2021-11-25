@@ -80,9 +80,17 @@ vector < vector < int >> simulate(vector < vector < int >> world) {
       }
     }
   }
+  console_output(nextgen_world);
   if (world != nextgen_world) {
-    console_output(nextgen_world);
-    return simulate(nextgen_world);
+    while (true) {
+      char c {
+        ' '
+      };
+      cout << "continue simulation ? y / n\n";
+      cin >> c;
+      if (c == 'y') return simulate(nextgen_world);
+      if (c == 'n') return nextgen_world;
+    }
   }
   return nextgen_world;
 }
@@ -90,19 +98,20 @@ vector < vector < int >> simulate(vector < vector < int >> world) {
 int main() {
   while (true) {
     int n, m;
-    cout << "world height as natural number : \n";
+    cout << "world height as natural number / integer <= 0 to close app \n";
     if (!(cin >> n)) {
       cin.clear();
       cin.ignore();
       continue;
     }
-    cout << "world width as natural number : \n";
+    if (n < 1) break;
+    cout << "world width as natural number / integer <= 0 to close app  \n";
     if (!(cin >> m)) {
       cin.clear();
       cin.ignore();
       continue;
     }
-    if (n < 1 || m < 1) continue;
+    if (m < 1) break;
     simulate(init_world(n, m));
   }
   return 0;
