@@ -1,1 +1,1 @@
-# Conways-Game-of-Life-C-CLI-app
+# Conways-Game-of-Life-Cpp-CLI-app
