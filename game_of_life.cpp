@@ -22,7 +22,7 @@ vector < vector < int >> alter_world(vector < vector < int >> world) {
     if (!(cin >> a)) {
       cin.clear();
       cin.ignore();
-      cout << "only digits as input allowed";
+      cout << "only integers as input allowed";
       continue;
     }
     if (a < 1) break;
@@ -33,7 +33,7 @@ vector < vector < int >> alter_world(vector < vector < int >> world) {
     if (!(cin >> b)) {
       cin.clear();
       cin.ignore();
-      cout << "only digits as input allowed";
+      cout << "only integers as input allowed";
       continue;
     }
     if (b < 1) break;
