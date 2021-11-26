@@ -13,12 +13,12 @@ void console_output(vector < vector < int >> world) {
   cout << '\n';
 }
 
-vector < vector < int >> init_world(int height, int width) {
-  vector < vector < int >> world(height + 2, vector < int > (width + 2, 0));
+vector < vector < int >> alter_world(vector < vector < int >> world) {
+  vector < vector < int >> altered_world = world;
   while (true) {
     int a, b;
     cout << "pairs of natural numbers to determine height and width of living cells / integer <= 0 to start simulation \n";
-    console_output(world);
+    console_output(altered_world);
     if (!(cin >> a)) {
       cin.clear();
       cin.ignore();
@@ -26,8 +26,8 @@ vector < vector < int >> init_world(int height, int width) {
       continue;
     }
     if (a < 1) break;
-    if (a > height) {
-      cout << "enter height less or equal to " << height << '\n';
+    if (a > (int) world.size() - 2) {
+      cout << "enter height less or equal to " << world.size() - 2 << '\n';
       continue;
     }
     if (!(cin >> b)) {
@@ -37,13 +37,13 @@ vector < vector < int >> init_world(int height, int width) {
       continue;
     }
     if (b < 1) break;
-    if (b > width) {
-      cout << "enter width less or equal to " << width << '\n';
+    if (b > (int) world.at(0).size() - 2) {
+      cout << "enter width less or equal to " << world.at(0).size() - 2 << '\n';
       continue;
     }
-    world.at(a).at(b) == 0 ? world.at(a).at(b) = 1 : world.at(a).at(b) = 0;
+    altered_world.at(a).at(b) == 0 ? altered_world.at(a).at(b) = 1 : altered_world.at(a).at(b) = 0;
   }
-  return world;
+  return altered_world;
 }
 
 vector < vector < int >> simulate(vector < vector < int >> world) {
@@ -96,23 +96,42 @@ vector < vector < int >> simulate(vector < vector < int >> world) {
 }
 
 int main() {
+  vector < vector < int >> world;
   while (true) {
     int n, m;
-    cout << "world height as natural number / integer <= 0 to close app \n";
+    cout << "world height as natural number / -1 to load previous world / 0 to close app \n";
     if (!(cin >> n)) {
       cin.clear();
       cin.ignore();
       continue;
     }
-    if (n < 1) break;
-    cout << "world width as natural number / integer <= 0 to close app  \n";
+    if (n == 0) break;
+    if (n == -1) {
+      if (!world.empty()) {
+        world = alter_world(world);
+        simulate(world);
+      }
+      continue;
+    }
+    if (n < -1) continue;
+    cout << "world width as natural number / -1 to load previous world / 0 to close app  \n";
     if (!(cin >> m)) {
       cin.clear();
       cin.ignore();
       continue;
     }
-    if (m < 1) break;
-    simulate(init_world(n, m));
+    if (m == 0) break;
+    if (m == -1) {
+      if (!world.empty()) {
+        world = alter_world(world);
+        simulate(world);
+      }
+      continue;
+    }
+    if (m < -1) continue;
+    vector < vector < int >> new_world(n + 2, vector < int > (m + 2, 0));
+    world = alter_world(new_world);
+    simulate(world);
   }
   return 0;
 }
