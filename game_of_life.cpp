@@ -10,7 +10,6 @@ void console_output(vector < vector < int >> world) {
       cout << (world.at(i).at(j) == 1 ? "o" : ".") << " ";
     cout << '\n';
   }
-  cout << '\n';
 }
 
 vector < vector < int >> alter_world(vector < vector < int >> world) {
@@ -86,10 +85,11 @@ vector < vector < int >> simulate(vector < vector < int >> world) {
       char c {
         ' '
       };
-      cout << "continue simulation ? y / n\n";
+      cout << "enter 'y' to continue simulation / enter 'a' to alter world / enter 'n' to stop\n";
       cin >> c;
       if (c == 'y') return simulate(nextgen_world);
       if (c == 'n') return nextgen_world;
+      if (c == 'a') return simulate(alter_world(nextgen_world));
     }
   }
   return nextgen_world;
